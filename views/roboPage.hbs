@@ -1,0 +1,14 @@
+<div class="container">
+    <div class="row">
+            {{#each robos}}
+            <div class="card m-2" style="width: 300px;">
+                <img src="{{image}}" class="card-image">
+                <div class="card-body">
+                    <h5 class="card-title">{{name}}</h5>
+                    <p class="card-text">${{price}}</p>
+                    <a href="detail/{{_id}}" class="btn btn-primary ">Order</a>
+                </div>
+            </div>
+            {{/each}}
+    </div>
+</div>

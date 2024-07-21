@@ -1,0 +1,42 @@
+<div class="container text-center">
+   <table class="table table-primary">
+      <tr>
+         <th colspan="8">
+            <h1 class="text text-primary">List Store</h1>
+             <a class="btn btn-primary" href="/robo/add">Add</a>
+         </th>
+         <th></th>
+      </tr>
+      <tr>
+         <th>Name</th>
+         <th>Quantity</th>
+         <th>Date</th>
+         <th>Model</th>
+         <th>Hot</th>
+         <th>Image</th>
+         <th>Category</th>
+         <th>Price</th>
+         <th></th>
+      </tr>
+      {{#each robos }}
+            <tr>
+               <td>{{ name }}</td>
+               <td>{{ quantity}}</td>
+               <td>{{ date}}</td>
+               <td>{{ model }}</td>
+               <td>{{ hot }}</td>
+               <td>
+                  <img src="{{ image }}" width="100" height="100">
+               </td>
+               <td>{{category}}</td>
+               <td>{{price}}</td>
+               <td>
+                  <a class="btn btn-warning" href="/robo/edit/{{ _id }}">Edit</a>
+                  <a class="btn btn-danger" href="/robo/delete/{{ _id }}"
+                  onclick="return confirm('Are you sure to delete this robo ?');"
+                  >Delete</a>
+               </td>
+            </tr>
+      {{/each}}
+   </table>
+</div>

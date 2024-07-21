@@ -1,0 +1,17 @@
+<div class="container">
+   <div style=" text-align: center;" >
+   <figure class="figure" style="max with:100%">
+         <img src="{{products.image}}"  class="figure-img img-fluid rounded" >
+   </figure>
+   <h5>Name: {{products.name}}</h5>
+   <h5>Price: ${{products.price}}</h5>
+   <h5>Hot: {{products.hot}}</h5>
+   <h5>Model: {{products.model}}</h5>
+   <h5>Quantity: {{products.quantity}}</h5>
+   <form action="/detail/order/{{ products._id}}" method="post">
+   <input type="hidden" name="price" id="{{products._id}}"value="{{products.price}}">
+   <input type="number" id="quantityInput" name="quantityInput" min="1" max="{{products.quantity}}">
+   <button class="btn btn-primary ">Buy</button>
+   </form>
+   </div>
+</div>
