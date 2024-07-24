@@ -1,39 +1,40 @@
-var createError = require('http-errors');
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
+require('dotenv').config();
+const express = require('express');
+const mongoose = require('mongoose');
+const path = require('path');
+const cookieParser = require('cookie-parser');
+const logger = require('morgan');
+const bodyParser = require('body-parser');
+const createError = require('http-errors');
+const hbs = require('hbs');
+require('./helpers'); // Đăng ký các helper
 
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
-var legoRouter = require('./routes/lego');
-var roboRouter = require('./routes/robo');
-var app = express();
-//body-parser
-var bodyParser = require('body-parser');
-app.use(bodyParser.urlencoded({ extended: false }));
-//mongoose
-var mongoose = require('mongoose'); 
-var uri = "mongodb+srv://ducddgch211224:ASM2_1644@cluster0.zoshmwr.mongodb.net/ATN";
-//dateFormat & equal of hbs
-var hbs = require('hbs');
-mongoose.connect(uri)
-.then(() => console.log('connect to db succeed'))
-.catch(err => console.log(err));
-// view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'hbs');
+const indexRouter = require('./routes/index');
+const billRouter = require('./routes/bill');
+const authRouter = require('./routes/auth');
+const serviceRouter = require('./routes/service');
+
+const app = express();
+const port = process.env.PORT || 3000;
+
+mongoose.connect('mongodb+srv://ducddgch211224:HaiLong2018@hailong2018.zzzrjno.mongodb.net/', { useNewUrlParser: true, useUnifiedTopology: true })
+  .then(() => console.log('Connected to MongoDB'))
+  .catch(err => console.error('Could not connect to MongoDB', err));
 
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(bodyParser.urlencoded({ extended: false }));
+
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'hbs');
 
 app.use('/', indexRouter);
-app.use('/lego', legoRouter);
-app.use('/robo', roboRouter);
-app.use('/users', usersRouter);
+app.use('/auth', authRouter);
+app.use('/bills', billRouter);
+app.use('/services', serviceRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -42,14 +43,15 @@ app.use(function(req, res, next) {
 
 // error handler
 app.use(function(err, req, res, next) {
-  // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
 
-  // render the error page
   res.status(err.status || 500);
   res.render('error');
 });
-// port
-app.listen(process.env.PORT || 3001);
+
+app.listen(port, () => {
+  console.log(`Server is running on port ${port}`);
+});
+
 module.exports = app;

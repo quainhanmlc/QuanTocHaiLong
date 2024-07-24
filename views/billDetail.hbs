@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Bill Detail</title>
+  <link rel="stylesheet" href="/stylesheets/main.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body>
+  <header>
+    <h1 class="text-primary">Bill Detail</h1>
+  </header>
+  <main class="container">
+    <h2>Service Name: {{bill.serviceName}}</h2>
+    <p>Service Code: {{bill.serviceCode}}</p>
+    <p>Price: {{bill.price}}</p>
+    <p>Discount: {{bill.discountPercentage}}%</p>
+    <p>Total Price: {{bill.totalPrice}}</p>
+    <p>Store: {{bill.store}}</p>
+    <a href="/bills" class="btn btn-secondary">Back to List</a>
+  </main>
+</body>
+
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Pay Service</title>
+  <link rel="stylesheet" href="/stylesheets/main.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body>
+  <main class="container">
+    <h2 class="text-center mt-4">Pay for Service</h2>
+    <form action="/services/pay/{{service._id}}" method="POST" class="mt-4">
+      <div class="form-group">
+        <label for="serviceName">Service Name</label>
+        <input type="text" class="form-control" id="serviceName" name="serviceName" value="{{service.serviceName}}" readonly>
+      </div>
+      <div class="form-group mt-3">
+        <label for="price">Price</label>
+        <input type="number" class="form-control" id="price" name="price" value="{{service.price}}" readonly>
+      </div>
+      <div class="form-group mt-3">
+        <label for="discountPercentage">Discount Percentage</label>
+        <input type="number" class="form-control" id="discountPercentage" name="discountPercentage" value="0" required>
+      </div>
+      {{#ifCond user.role '==' 'admin'}}
+      <div class="form-group mt-3">
+        <label for="store">Store</label>
+        <select class="form-control" id="store" name="store" required>
+          <option value="Quán 1">Quán 1</option>
+          <option value="Quán 2">Quán 2</option>
+        </select>
+      </div>
+      {{else}}
+      <input type="hidden" name="store" value="{{user.store}}">
+      {{/ifCond}}
+      <button type="submit" class="btn btn-primary mt-3">Pay</button>
+    </form>
+  </main>
+</body>
+
+</html>
