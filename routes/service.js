@@ -8,7 +8,7 @@ const auth = require('../middlewares/auth');
 router.get('/', auth(['admin', 'manager']), async (req, res) => {
   try {
     const services = await Service.find();
-    res.render('serviceList', { services: services });
+    res.render('serviceList', { services: services, user: req.user });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }

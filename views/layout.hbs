@@ -11,14 +11,14 @@
   <header class="container-fluid" id="header">
     <h1 class="text text-primary">STORE HaiLong</h1>
     <nav>
-      <a class="btn btn-info" href="/">Home</a>
-      <a class="btn btn-info" href="/bills">Bills</a>
-      <a class="btn btn-info" href="/services">Services</a>
       {{#if user}}
-      <span>Welcome, {{user.username}} ({{user.role}})</span>
-      <a class="btn btn-danger" href="/auth/logout">Logout</a>
+        <a class="btn btn-info" href="/">Home</a>
+        <a class="btn btn-info" href="/bills">Bills</a>
+        <a class="btn btn-info" href="/services">Services</a>
+        <span>Welcome, {{user.username}} ({{user.role}})</span>
+        <a class="btn btn-danger" href="/auth/logout">Logout</a>
       {{else}}
-      <a class="btn btn-info" href="/auth/login">Login</a>
+        <a class="btn btn-info" href="/auth/login">Login</a>
       {{/if}}
     </nav>
   </header>

@@ -2,39 +2,24 @@
 <html>
 
 <head>
-  <title>Bill List</title>
+  <title>Service List</title>
   <link rel="stylesheet" href="/stylesheets/main.css">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 
 <body>
-  
   <main class="container">
-    <h2 class="text-center mt-4">Bill List</h2>
+    <h2 class="text-center mt-4">Service List</h2>
     <table class="table table-striped mt-4">
       <thead>
         <tr>
           <th>Service Name</th>
-          <th>Service Code</th>
-          <th>Price</th>
-          <th>Discount Percentage</th>
-          <th>Total Price</th>
-          <th>Store</th>
-          <th>Actions</th>
         </tr>
       </thead>
       <tbody>
-        {{#each bills}}
+        {{#each services}}
         <tr>
           <td>{{this.serviceName}}</td>
-          <td>{{this.serviceCode}}</td>
-          <td>{{this.price}}</td>
-          <td>{{this.discountPercentage}}%</td>
-          <td>{{this.totalPrice}}</td>
-          <td>{{this.store}}</td>
-          <td>
-            <a href="/bills/{{this._id}}" class="btn btn-info">View</a>
-          </td>
         </tr>
         {{/each}}
       </tbody>

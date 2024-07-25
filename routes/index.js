@@ -1,12 +1,12 @@
 const express = require('express');
 const router = express.Router();
-const Bill = require('../models/Bill');
+const Service = require('../models/Service');
 
-/* GET home page. */
+// Get all services for the home page
 router.get('/', async (req, res) => {
   try {
-    const bills = await Bill.find();
-    res.render('index', { bills: bills });
+    const services = await Service.find();
+    res.render('index', { services: services, user: req.user });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
