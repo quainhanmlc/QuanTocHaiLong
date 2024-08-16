@@ -32,6 +32,11 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
 
+app.use((req, res, next) => {
+  res.locals.user = req.user || null;
+  next();
+});
+
 app.use('/auth', authRouter);
 app.use('/', auth(['admin', 'manager']), indexRouter);
 app.use('/bills', auth(['admin', 'manager']), billRouter);

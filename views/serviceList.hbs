@@ -10,7 +10,9 @@
 <body>
   <main class="container">
     <h2 class="text-center mt-4">Service List</h2>
-    <a href="/services/add" class="btn btn-primary mb-3">Add Service</a>
+    {{#if (eq user.role "admin")}}
+      <a href="/services/add" class="btn btn-primary mb-3">Add Service</a>
+    {{/if}}
     <table class="table table-striped mt-4">
       <thead>
         <tr>
@@ -28,6 +30,9 @@
           <td>{{this.price}}</td>
           <td>
             <a href="/services/pay/{{this._id}}" class="btn btn-primary">Pay</a>
+            {{#if (eq ../user.role "admin")}}
+              <a href="/services/edit/{{this._id}}" class="btn btn-warning">Edit</a>
+            {{/if}}
           </td>
         </tr>
         {{/each}}

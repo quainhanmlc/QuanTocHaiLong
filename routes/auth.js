@@ -11,14 +11,14 @@ router.post('/login', async (req, res) => {
     return res.status(400).json({ message: 'Invalid username or password' });
   }
   const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
-  res.cookie('token', token, { httpOnly: true });
+  res.cookie('token', token, { httpOnly: true }); // Lưu token trong cookie
   res.redirect('/');
 });
 
 // Logout route
 router.get('/logout', (req, res) => {
-  res.clearCookie('token');
-  res.redirect('/');
+  res.clearCookie('token');  // Xóa cookie chứa token
+  res.redirect('/');          // Chuyển hướng về trang chủ
 });
 
 router.get('/login', (req, res) => {

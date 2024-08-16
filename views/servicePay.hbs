@@ -2,14 +2,15 @@
 <html>
 
 <head>
-  <title>Pay Service</title>
+  <title>Payment</title>
   <link rel="stylesheet" href="/stylesheets/main.css">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 
 <body>
+
   <main class="container">
-    <h2 class="text-center mt-4">Pay for Service</h2>
+    <h2 class="text-center mt-4">Payment</h2>
     <form action="/services/pay/{{service._id}}" method="POST" class="mt-4">
       <div class="form-group">
         <label for="serviceName">Service Name</label>
@@ -17,26 +18,48 @@
       </div>
       <div class="form-group mt-3">
         <label for="price">Price</label>
-        <input type="number" class="form-control" id="price" name="price" value="{{service.price}}" readonly>
+        <div class="input-group">
+          {{#if (includes service.serviceName "Nhuộm tóc")}}
+          <button type="button" class="btn btn-secondary" onclick="adjustPrice(-1000)">-</button>
+          <input type="number" class="form-control" id="price" name="price" value="{{service.price}}" required>
+          <button type="button" class="btn btn-secondary" onclick="adjustPrice(1000)">+</button>
+          {{else}}
+          <input type="number" class="form-control" id="price" name="price" value="{{service.price}}" readonly>
+          {{/if}}
+        </div>
       </div>
       <div class="form-group mt-3">
         <label for="discountPercentage">Discount Percentage</label>
         <input type="number" class="form-control" id="discountPercentage" name="discountPercentage" value="0" required>
       </div>
-      {{#ifCond user.role '==' 'admin'}}
       <div class="form-group mt-3">
         <label for="store">Store</label>
+        {{#if (eq user.role "admin")}}
         <select class="form-control" id="store" name="store" required>
           <option value="Quán 1">Quán 1</option>
           <option value="Quán 2">Quán 2</option>
         </select>
+        {{else}}
+        <input type="text" class="form-control" id="store" name="store" value="{{user.store}}" readonly>
+        {{/if}}
       </div>
-      {{else}}
-      <input type="hidden" name="store" value="{{user.store}}">
-      {{/ifCond}}
-      <button type="submit" class="btn btn-primary mt-3">Pay</button>
+      <button type="submit" class="btn btn-primary mt-3">Confirm Payment</button>
     </form>
   </main>
+
+  <footer class="text-center mt-4">
+    <p>&copy; 2024 Your Company. All rights reserved.</p>
+  </footer>
 </body>
 
 </html>
+
+<script>
+  function adjustPrice(amount) {
+    const priceInput = document.getElementById('price');
+    let currentPrice = parseInt(priceInput.value) || 0;
+    currentPrice += amount;
+    if (currentPrice < 0) currentPrice = 0;
+    priceInput.value = currentPrice;
+  }
+</script>

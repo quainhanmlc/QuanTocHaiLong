@@ -27,3 +27,9 @@ hbs.registerHelper('ifCond', function(v1, operator, v2, options) {
       return options.inverse(this);
   }
 });
+hbs.registerHelper('eq', (a, b) => {
+  return a === b;
+});
+hbs.registerHelper('includes', function(str, substring) {
+  return str.includes(substring);
+});
